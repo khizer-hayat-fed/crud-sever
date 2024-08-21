@@ -1,9 +1,14 @@
+const { response } = require('express');
 const User = require('../models/UserModel');
 
 // Controller for creating a user
 exports.createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        if ( !name || !email || !password){
+            return res.status(400).json({ error: "invalid data" });
+        }
+        
 
         // Create a new user instance
         const user = new User({ name, email, password });
